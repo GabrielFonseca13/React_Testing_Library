@@ -53,6 +53,38 @@ describe('Testes do Requisito 5', () => {
     expect(nextPokeName0).toBeInTheDocument();
   });
   it('Teste se é mostrado apenas um pokémon por vez', () => {
+    renderWithRouter(<App />);
+    const pokemonNameTestId = screen.getAllByTestId(/pokemon-name/i);
+    expect(pokemonNameTestId.length).toBe(1);
+  });
+  it('Teste se a Pokédex tem os botões de filtro:', () => {
+    renderWithRouter(<App />);
+    const filterButtons = screen.getAllByTestId(/pokemon-type-button/i);
+    expect(filterButtons.length).toBe(7);
+    // console.log(filterButtons);
 
+    expect(filterButtons[0]).toHaveTextContent('Electric');
+    expect(filterButtons[1]).toHaveTextContent('Fire');
+    expect(filterButtons[2]).toHaveTextContent('Bug');
+    expect(filterButtons[3]).toHaveTextContent('Poison');
+    expect(filterButtons[4]).toHaveTextContent('Psychic');
+    expect(filterButtons[5]).toHaveTextContent('Normal');
+    expect(filterButtons[6]).toHaveTextContent('Dragon');
+
+    const allButon = screen.getByRole('button', { name: /All/i });
+    expect(allButon).toBeInTheDocument();
+    userEvent.click(allButon);
+    expect(screen.getByText(/Pikachu/i));
+
+    userEvent.click(filterButtons[4]);
+    const psychicPoke1 = screen.getByText(/Alakazam/i);
+    expect(psychicPoke1).toBeInTheDocument();
+
+    const nextPokeButton = screen.getByRole('button', { name: /Próximo Pokémon/i });
+    expect(nextPokeButton).toBeInTheDocument();
+
+    userEvent.click(nextPokeButton);
+    const psychicPoke2 = screen.getByText(/Mew/i);
+    expect(psychicPoke2).toBeInTheDocument();
   });
 });
