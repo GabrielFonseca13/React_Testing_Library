@@ -53,5 +53,6 @@ describe('Testes do Requisito 5', () => {
     expect(nextPokeName0).toBeInTheDocument();
   });
   it('Teste se é mostrado apenas um pokémon por vez', () => {
+
   });
 });
