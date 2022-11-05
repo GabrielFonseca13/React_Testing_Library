@@ -15,8 +15,8 @@ describe('Testes do Requisito 1', () => {
     const aboutLink = screen.getByRole('link', { name: /about/i });
     expect(aboutLink).toBeInTheDocument();
 
-    const favPokemons = screen.getByRole('link', { name: /Favorite Pokémons/i });
-    expect(favPokemons).toBeInTheDocument();
+    const favPokemonsLink = screen.getByRole('link', { name: /Favorite Pokémons/i });
+    expect(favPokemonsLink).toBeInTheDocument();
   });
   it('Teste se a aplicação é redirecionada para a página inicial, na URL / ao clicar no link Home da barra de navegação', () => {
     const { history } = renderWithRouter(<App />);
