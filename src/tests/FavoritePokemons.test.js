@@ -2,6 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 
@@ -17,6 +18,20 @@ describe('Testes do Requisito 3', () => {
     expect(emptyFavText).toBeInTheDocument();
   });
   it('Teste se são exibidos todos os cards de pokémons favoritados.', () => {
+    const { history } = renderWithRouter(<App />);
 
+    const moreDetailsLink = screen.getByRole('link', { name: /More Details/i });
+    expect(moreDetailsLink).toBeInTheDocument();
+    userEvent.click(moreDetailsLink);
+
+    const favCheckbox = screen.getByRole('checkbox');
+    userEvent.click(favCheckbox);
+
+    act(() => {
+      history.push('/Favorites');
+    });
+
+    const pokemonFav = screen.getByText(/Pikachu/i);
+    expect(pokemonFav).toBeInTheDocument();
   });
 });
